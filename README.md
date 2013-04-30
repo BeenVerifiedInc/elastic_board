@@ -1,6 +1,6 @@
 # ElasticBoard
 
-TODO: Write a gem description
+An ElasticSearch status board as a Rack middleware for Ruby applications.
 
 ## Installation
 
@@ -18,7 +18,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The status board uses the [Rubberband Gem](https://github.com/grantr/rubberband) and an instance of `ElasticSearch::Client`
+
+Load it in your `config.ru` file with an instance of `ElasticSearch::Client`
+
+    map '/elasticboard' do
+      run ElasticBoard::Application.new(
+        :connection => ElasticSearch.new("localhost:9200")
+      )
+    end
+    
+If you use something like Escargot and ActiveRecord in your application, you can re-use the connection like so:
+
+    map '/elasticboard' do
+      run ElasticBoard::Application.new(
+        :connection => Escargot.connection
+      )
+    end
+    
+From there, just go to `/elasticboard` and check it out.
 
 ## Contributing
 
