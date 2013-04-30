@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "sinatra"
+require "sinatra/base"
 require "rubberband"
 require "elastic_board"
 

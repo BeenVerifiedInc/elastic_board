@@ -1,4 +1,5 @@
 require "elastic_board/summary"
+require "sinatra/base"
 
 module ElasticBoard
   
