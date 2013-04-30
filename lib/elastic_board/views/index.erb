@@ -1,0 +1,64 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">ElasticBoard - <%= @summary.cluster_name %></a>
+      <span class="badge <%= header_badge(@summary)[:class] %>" style="margin-top:11px;"><%= header_badge(@summary)[:message] %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="span6">
+      <h2>Cluster Health <span class="badge badge-<%= @summary.nodes_info['ok'] ? 'success' : 'important' %>"><%= @summary.nodes_info['ok'] ? 'Healthy' : 'Problem' %></span></h2>
+      <div class="well well-top">
+        <table class="summary_table">
+          <tr><td style="font-weight: bold">Number of Nodes</td><td><%= @summary.number_of_nodes %></td></tr>
+          <tr><td style="font-weight: bold">Active Shards</td><td><%= @summary.active_shards %></td></tr>
+          <tr><td style="font-weight: bold">Active Primary Shards</td><td><%= @summary.active_primary_shards %></td></tr>
+          <tr><td style="font-weight: bold">Unassigned Shards</td><td><%= @summary.unassigned_shards %></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="span6">
+      <h2>Nodes in Cluster</h2>
+      <div class="well well-top">
+        <table class="summary_table">
+          <% @summary.nodes.each do |node| %>
+            <tr><td style="font-weight: bold"><%= node[:name] %></td><td><%= node[:address] %></td></tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main hero unit for a primary marketing message or call to action -->
+  <div class="container">
+    <h2>Indexes</h2>
+    <div class="well">
+      <table class="summary_table">
+        <tr>
+          <td><span style="font-weight: bold">Index Name</span></td>
+          <td><span style="font-weight: bold">Records</span></td>
+          <td><span style="font-weight: bold">Size</span></td>
+        </tr>
+        <% @summary.indices.each do |index_name, details| %>
+          <tr>
+            <td><%= index_name %></td>
+            <td><%= details['docs']['num_docs'] %></td>
+            <td><%= details['index']['size'] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <footer>
+    <p>&copy; ElasticBoard 2013</p>
+  </footer>
+
+</div> <!-- /container -->

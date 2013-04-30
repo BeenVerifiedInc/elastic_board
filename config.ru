@@ -1,0 +1,8 @@
+require "bundler/setup"
+require "sinatra"
+require "rubberband"
+require "elastic_board"
+
+map '/elasticboard' do
+  run ElasticBoard::Application.new(:connection => ElasticSearch.new("localhost:9200"))
+end
