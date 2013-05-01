@@ -57,9 +57,12 @@ module ElasticBoard
     # ==================
     
     get '/' do
-      @summary = ElasticBoard::Summary.new(self.connection)
-      
-      erb :index
+      if self.connection
+        @summary = ElasticBoard::Summary.new(self.connection)
+        erb :index
+      else
+        erb :down
+      end
     end
     
   end

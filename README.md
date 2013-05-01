@@ -24,7 +24,7 @@ Load it in your `config.ru` file with an instance of `ElasticSearch::Client`
 
     map '/elasticboard' do
       run ElasticBoard::Application.new(
-        :connection => ElasticSearch.new("localhost:9200")
+        :connection => (ElasticSearch.new("localhost:9200") rescue nil)
       )
     end
     
@@ -32,11 +32,13 @@ If you use something like Escargot and ActiveRecord in your application, you can
 
     map '/elasticboard' do
       run ElasticBoard::Application.new(
-        :connection => Escargot.connection
+        :connection => (Escargot.connection rescue nil)
       )
     end
     
 From there, just go to `/elasticboard` and check it out.
+
+Note: `rescue nil` is a nice safety in the event that your app is unable to connect to ElasticSearch, it will still boot.  If you don't leave ES running on your development machine, this will let your app continue to boot regardless of whether or not ES is running.  ElasticBoard will handle a nil connection gracefully.
 
 ## Contributing
 

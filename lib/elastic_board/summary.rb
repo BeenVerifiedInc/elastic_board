@@ -87,6 +87,14 @@ module ElasticBoard
       cluster_health['unassigned_shards']
     end
     
+    def cluster_health_notice
+      if unassigned_shards.to_i > 0
+        "Unassigned Shards Greater than Zero"
+      else
+        return nil
+      end
+    end
+    
     private
     
     def extract_ip_from_address(address)

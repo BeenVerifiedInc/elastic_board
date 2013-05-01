@@ -12,7 +12,7 @@
   <!-- Example row of columns -->
   <div class="row">
     <div class="span6">
-      <h2>Cluster Health <span class="badge badge-<%= @summary.nodes_info['ok'] ? 'success' : 'important' %>"><%= @summary.nodes_info['ok'] ? 'Healthy' : 'Problem' %></span></h2>
+      <h2>Cluster Health <span class="badge badge-<%= @summary.cluster_health_notice.nil? ? 'success' : 'warning' %>"><%= @summary.cluster_health_notice.nil? ? 'Healthy' : @summary.cluster_health_notice %></span></h2>
       <div class="well well-top">
         <table class="summary_table">
           <tr><td style="font-weight: bold">Number of Nodes</td><td><%= @summary.number_of_nodes %></td></tr>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="span6">
-      <h2>Nodes in Cluster</h2>
+      <h2>Nodes in Cluster <span class="badge badge-<%= @summary.nodes_info['ok'] ? 'success' : 'important' %>"><%= @summary.nodes_info['ok'] ? 'Healthy' : 'Problem' %></span></h2>
       <div class="well well-top">
         <table class="summary_table">
           <% @summary.nodes.each do |node| %>
